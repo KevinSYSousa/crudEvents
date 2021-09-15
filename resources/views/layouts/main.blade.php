@@ -24,25 +24,43 @@
                         <ion-icon name="home-outline"></ion-icon>
                     </a>
                     <ul>
-                        <li >
+                        <li>
                             <a href="/">Events</a>
                         </li>
                     </ul>
                     <ul>
-                        <li >
-                            <a href="/events/create" >Create</a>
+                        <li>
+                            <a href="/events/create">Create</a>
+                        </li>
+                    </ul>
+                    @auth
+                    <ul>
+                        <li>
+                            <a href="/dashboard">Meus eventos</a>
                         </li>
                     </ul>
                     <ul>
-                        <li >
-                            <a href="/">Sign in</a>
+                        <li>
+                            <form action="/logout" method="POST">
+                                @csrf
+                                <a href="/logout" onclick="event.preventDefault();
+                                                            this.closest('form').submit();">Logout</a>
+                            </form>
+                        </li>
+                    </ul>
+                    @endauth
+                    @guest
+                    <ul>
+                        <li>
+                            <a href="/login">Sign in</a>
                         </li>
                     </ul>
                     <ul>
-                        <li >
-                            <a href="/">Sign up</a>
+                        <li>
+                            <a href="/register">Sign up</a>
                         </li>
                     </ul>
+                    @endguest
                 </div>
             </nav>
         </header>

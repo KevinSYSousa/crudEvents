@@ -12,10 +12,20 @@
                 height: 300px;">
             <div class="showInfo">
                 <h1>{{ $event->title }}</h1>
-                <p><ion-icon name="location-outline"></ion-icon>{{ $event->city }}</p>
-                <p>{{ $event->date }} - {{ $event->time }}</p>
-                <p><ion-icon name="person-outline"></ion-icon> Gestor</p>
-                <a href="#"><ion-icon name="log-in-outline"></ion-icon>Participar</a>
+                <p><ion-icon name="location-outline"></ion-icon> {{ $event->city }}</p>
+                <p><ion-icon name="calendar-outline"></ion-icon> {{ date('d/m/Y', strtotime($event->date)) }}</p>
+                <p><ion-icon name="time-outline"></ion-icon> {{ $event->time }}</p>
+                <p><ion-icon name="people-outline"></ion-icon> {{ count($event->users)}} Participantes</p>
+                <p><ion-icon name="person-outline"></ion-icon> {{ $eventOwner['name'] }}</p>
+                @if (!$hasUserJoined)
+                <form action="/events/join/{{ $event->id }}" method="POST">
+                    @csrf
+                    <a href="/events/join/{{ $event->id }}" onclick="event.preventDefault();
+                        this.closest('form').submit();"><ion-icon name="log-in-outline"></ion-icon>Participar</a>
+                </form>
+                @else
+                    <p>Já Participando</p>
+                @endif
             </div>
             <div class="showDescription">
                 <h3>Informações do evento:</h3>
